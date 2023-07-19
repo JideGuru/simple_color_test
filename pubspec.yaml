@@ -31,7 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  solid_lints: ^0.0.16
 
 dev_dependencies:
   flutter_test:
