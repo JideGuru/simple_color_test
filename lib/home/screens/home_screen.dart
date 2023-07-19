@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:simple_color_test/home/screens/color_history_screen.dart';
 
 /// Represents the first and only screen of the application.
 class HomeScreen extends StatefulWidget {
@@ -12,7 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Color backgroundColor = Colors.white;
+  Color _backgroundColor = Colors.white;
+  final _colorHistory = <Color>[];
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +24,31 @@ class _HomeScreenState extends State<HomeScreen> {
       body: GestureDetector(
         onTap: () {
           setState(() {
-            backgroundColor = getRandomHexColor();
+            _backgroundColor = getRandomHexColor();
           });
+          _colorHistory.add(_backgroundColor);
         },
         child: AnimatedContainer(
           width: screenSize.width,
           height: screenSize.height,
-          color: backgroundColor,
+          color: _backgroundColor,
           duration: const Duration(milliseconds: 250),
           child: const Center(child: Text('Hello there')),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ColorHistoryScreen(
+                colorHistory: _colorHistory,
+              ),
+            ),
+          );
+        },
+        icon: const Icon(Icons.history),
+        label: const Text('History'),
       ),
     );
   }
